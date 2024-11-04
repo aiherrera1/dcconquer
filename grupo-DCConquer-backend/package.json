@@ -1,0 +1,43 @@
+{
+  "name": "grupo-DCConquer-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "commonjs",
+  "repository": "https://github.com/IIC2513-2022-2/grupo-DCConquer-backend.git",
+  "author": "Agustin Herrera <67199617+aiherrera1@users.noreply.github.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^4.0.0",
+    "bcrypt": "^5.1.0",
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.4",
+    "koa-body": "^5.0.0",
+    "koa-cookie": "^1.0.0",
+    "koa-jwt": "^4.0.3",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^12.0.0",
+    "koa-session": "^6.2.0",
+    "pg": "^8.8.0",
+    "sequelize": "^6.24.0",
+    "sequelize-cli": "^6.5.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^7.32.0 || ^8.2.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-jest": "^27.1.5",
+    "jest": "^29.3.1",
+    "nodemon": "^2.0.20",
+    "supertest": "^6.3.1"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "cross-env NODE_ENV=test jest",
+    "pretest": "cross-env NODE_ENV=test yarn run migrate:reset",
+    "migrate:reset": "yarn sequelize-cli db:drop && yarn run setup_test_db",
+    "setup_test_db": "yarn sequelize-cli db:create && yarn sequelize-cli db:migrate && yarn sequelize-cli db:seed:all --seeders-path src/seeders/test_seeds"
+  }
+}

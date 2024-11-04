@@ -1,0 +1,105 @@
+1. create match player1
+a. post url /games
+body = {
+      name: props.matchName,
+      min_players: props.minPlayers,
+      max_players: props.maxPlayers,
+      starting_cards: props.startingCards,
+      active: false,
+      winner_id: -1,
+    };
+
+2. create request from (player2)
+    post
+    const url = `${SERVER_URL}/requests`;
+    const body = {
+      match_id: selected,
+    };
+
+3. accept request (player1)
+    const body = {
+      match_id: id,
+      player_id: player_id,
+    };
+    await axios
+      .post(`${SERVER_URL}/playersmatch/${id}`
+
+4. start game
+post
+body da lo mismo
+const url = `${SERVER_URL}/matches/${id}`;
+
+
+repite 
+5. post turn (get card)
+    const body = {
+      warriors:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      owners: [0, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+      card: 1,
+      threw_first: false,
+      threw_second: false,
+      used_dice: false,
+      dices: ['default', 'default', 'default', 'default', 'default'],
+      from: ,
+      to: ,
+      from_warriors: ,
+      attacked: false,
+    };
+
+6. post turn (threw first dice)
+    const body = {
+      warriors:[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      owners: [0, -1, -1, -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1],
+      card: 0,
+      threw_first: true,
+      threw_second: false,
+      used_dice: false,
+      dices: ['dice4', 'dice2', 'dice2', 'dice6', 'dice2'],
+      from: ,
+      to: ,
+      from_warriors: ,
+      attacked: false,
+    };
+
+6. post turn (attack other territory)
+    const body = {
+      warriors: array de nuevo guerreros,
+      owners: array de nuevo owners,
+      card: 0,
+      threw_first: true,
+      threw_second: true,
+      used_dice: true,
+      dices: ['dice4', 'dice2', 'dice2', 'dice6', 'dice2'],
+      from: 1,
+      to: 13,
+      from_warriors: 20,
+      attacked: false,
+    };
+
+7. post turn (send warriors)
+    const body = {
+      warriors: array de nuevo guerreros,
+      owners: array de nuevo owners,
+      card: 0,
+      threw_first: true,
+      threw_second: true,
+      used_dice: true,
+      dices: ['dice4', 'dice2', 'dice2', 'dice6', 'dice2'],
+      from: ,
+      to: ,
+      from_warriors: ,
+      attacked: true,
+    };
+
+8. end turn
+    const url = `${SERVER_URL}/matches/${id}`;
+    const body = {
+      match_id: id,
+      player_id: playerId,
+      warriors: warriors,
+      owners: owners,
+      diceCards: diceCards,
+      wallCards: wallCards,
+      shipCards: shipCards,
+      score: score,
+    };
