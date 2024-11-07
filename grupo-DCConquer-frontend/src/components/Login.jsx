@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import '../assets/styles/login.css';
-import axios from 'axios';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import useCookieAuth from '../hooks/useCookieAuth';
-import { SERVER_URL } from '../App';
-import useTokenAuth from '../hooks/useTokenAuth';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import "../assets/styles/login.css";
+import axios from "axios";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import useCookieAuth from "../hooks/useCookieAuth";
+import { SERVER_URL } from "../App";
+import useTokenAuth from "../hooks/useTokenAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
 
-  // axios.defaults.withCredentials = true;
-
-  const [loginStatus, setLoginStatus] = useState('');
+  const [loginStatus, setLoginStatus] = useState("");
 
   // const [cookies, setCookie] = useCookies(["cookie-name"]);
   const { handleUserLogin } = useCookieAuth();
   const { handleTokenChange } = useTokenAuth();
 
   const DisplayingErrorMessagesSchema = Yup.object().shape({
-    user_email: Yup.string().email('Invalid email').required('Required'),
-    user_password: Yup.string().required('No password provided'),
+    user_email: Yup.string().email("Invalid email").required("Required"),
+    user_password: Yup.string().required("No password provided"),
   });
 
   const sendLogin = async (props) => {
@@ -34,14 +32,11 @@ export default function Login() {
     await axios
       .post(url, body)
       .then((response) => {
-        console.log(response);
         if (response.status < 300) {
-          console.log('hi', response);
-          console.log(response.data['token']);
           handleUserLogin();
-          handleTokenChange(response.data['token'], 'login');
+          handleTokenChange(response.data["token"], "login");
           setLoginStatus(response.data.username);
-          navigate('/');
+          navigate("/");
           // window.location.replace('./');
         }
       })
@@ -52,23 +47,13 @@ export default function Login() {
       });
   };
 
-  // useEffect(() => {
-  //   axios.get(`${SERVER_URL}/login`).then((response) => {
-  //     if (response.data.loggedIn === true) {
-  //       setLoginStatus(response.data.username);
-  //       // console.log(cookies["userid"]);
-  //     }
-  //     console.log(response);
-  //   });
-  // }, []);
-
   return (
     <div className="login-style">
       <Navbar />
       <Formik
         initialValues={{
-          user_email: '',
-          user_password: '',
+          user_email: "",
+          user_password: "",
         }}
         validationSchema={DisplayingErrorMessagesSchema}
         onSubmit={(values) => {

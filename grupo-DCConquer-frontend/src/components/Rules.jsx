@@ -13,7 +13,6 @@ function Rules() {
         const sectionHeight = section.clientHeight;
         if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
           current = section.getAttribute("id");
-          console.log(current);
         }
       });
 
@@ -81,8 +80,8 @@ function Rules() {
         <h5>Start and Turns</h5>
         <h6>
           {" "}
-          Once the host user has began the match, each player will be
-          randomly given a different color, and an id (P1, P2, P3, P4, P5 or P6)
+          Once the host user has began the match, each player will be randomly
+          given a different color, and an id (P1, P2, P3, P4, P5 or P6)
         </h6>
         <h5> Game Turn</h5>
         <h6>

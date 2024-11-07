@@ -1,29 +1,34 @@
 # grupo-DCConquer-frontend
 
-## Deploy Front
-
-[DCConquer](https://dcconquer.online)
-
-## Integrantes
+## Contributors
 
 - Vicente Aburto
 - Agustín Herrera
 - Agustín Suazo
 
-# Documentación
+# Documentation
 
-## Pasos instalación local
+## How to run the project
 
-1. En la terminal posicionarse en la carpeta ``grupo-DCConquer-frontend`
-2. Instalar las librerías
+1. Change directory to `grupo-DCConquer-frontend`
+
+   ```bash
+   cd grupo-DCConquer-frontend
    ```
-   yarn install
+
+2. Install dependencies
+
+   ```bash
+    npm install
    ```
-3. Crear archivo `.env`en carpeta general (`grupo-DCConquer-frontend`) con lo siguiente:
+
+3. Create a `.env` file in the root of the project with the following content
+
    ```
    REACT_APP_SERVER_URL="http://dcconquer.herokuapp.com"
    ```
-4. Correr react
+
+4. Start the project
    ```
    yarn start
    ```

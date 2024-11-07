@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import LinksAdmin from './LinksAdmin';
-import { SERVER_URL } from '../App';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../assets/styles/admin.css';
+import React, { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import LinksAdmin from "./LinksAdmin";
+import { SERVER_URL } from "../App";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../assets/styles/admin.css";
 
 function AdminPlayersMatch() {
   const [data, setData] = useState([]);
@@ -18,16 +18,16 @@ function AdminPlayersMatch() {
         const { data: response } = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         });
         if (!response.admin) {
-          navigate('/error');
+          navigate("/error");
         }
       } catch (error) {
         console.error(error.message);
-        navigate('/error');
+        navigate("/error");
       }
     };
 
@@ -41,15 +41,14 @@ function AdminPlayersMatch() {
         const { data: response } = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         });
         setData(response);
-        console.log(response);
       } catch (error) {
         console.error(error.message);
-        navigate('/error');
+        navigate("/error");
       }
     };
 
@@ -62,14 +61,13 @@ function AdminPlayersMatch() {
       .delete(`${url}/playersmatch/${match_id}/players/${player_id}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
       .then((response) => {
-        console.log(response.status);
         if (response.status === 201) {
-          window.location.href = '/admin_players_match';
+          window.location.href = "/admin_players_match";
         }
       })
       .catch((error) =>

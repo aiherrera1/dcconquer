@@ -1,15 +1,9 @@
-/* @font-face {
-  font-family: "Berry Rotunda";
-  src: url("../src/assets/fonts/perry-gothic/PERRYGOT.TTF") format("truetype");
-} */
-
 @font-face {
-  font-family: 'Berry Rotunda';
-  src: url('../src/assets/fonts/Berry_Rotunda.ttf') format("truetype");
+  font-family: "Berry Rotunda";
+  src: url("../src/assets/fonts/Berry_Rotunda.ttf") format("truetype");
 }
 
 * {
-  /* box-sizing: border-box; */
   margin: 0;
   padding: 0;
 }

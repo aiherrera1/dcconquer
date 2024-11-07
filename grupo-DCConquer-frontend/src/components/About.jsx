@@ -1,6 +1,6 @@
-import React from 'react';
-import Navbar from './Navbar';
-import '../assets/styles/us.css';
+import React from "react";
+import Navbar from "./Navbar";
+import "../assets/styles/us.css";
 
 function About() {
   return (
@@ -20,13 +20,13 @@ function About() {
                 <div className="flip-box-inner">
                   <div className="flip-box-front">
                     <img
-                      src={require('../assets/images/team/vicente_aburto/formal_vicho.JPG')}
+                      src={require("../assets/images/team/vicente_aburto/formal_vicho.JPG")}
                       alt="vicho formal"
                     />
                   </div>
                   <div className="flip-box-back">
                     <img
-                      src={require('../assets/images/team/vicente_aburto/crazy_vicho.jpg')}
+                      src={require("../assets/images/team/vicente_aburto/crazy_vicho.jpg")}
                       alt="vicho crazy"
                     />
                   </div>
@@ -55,13 +55,13 @@ function About() {
                 <div className="flip-box-inner">
                   <div className="flip-box-front">
                     <img
-                      src={require('../assets/images/team/agustin_herrera/formal_herrera.jpg')}
+                      src={require("../assets/images/team/agustin_herrera/formal_herrera.jpg")}
                       alt="herrera formal"
                     />
                   </div>
                   <div className="flip-box-back">
                     <img
-                      src={require('../assets/images/team/agustin_herrera/crazy_herrera.jpeg')}
+                      src={require("../assets/images/team/agustin_herrera/crazy_herrera.jpg")}
                       alt="herrera crazy"
                     />
                   </div>
@@ -90,13 +90,13 @@ function About() {
                 <div className="flip-box-inner">
                   <div className="flip-box-front">
                     <img
-                      src={require('../assets/images/team/agustin_suazo/foto_perfil.jpg')}
+                      src={require("../assets/images/team/agustin_suazo/foto_perfil.jpg")}
                       alt="agu formal"
                     />
                   </div>
                   <div className="flip-box-back">
                     <img
-                      src={require('../assets/images/team/agustin_suazo/foto_troll.jpg')}
+                      src={require("../assets/images/team/agustin_suazo/foto_troll.jpg")}
                       alt="agu crazy"
                     />
                   </div>

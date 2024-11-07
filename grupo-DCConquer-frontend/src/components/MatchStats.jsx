@@ -1,11 +1,11 @@
-import React from 'react';
-import axios from 'axios';
-import { SERVER_URL } from '../App';
-import { useParams, useNavigate } from 'react-router-dom';
+import React from "react";
+import axios from "axios";
+import { SERVER_URL } from "../App";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getTotalWarriors,
   getTotalTerritories,
-} from './functions/matchFunctions';
+} from "./functions/matchFunctions";
 
 function MatchStats(props) {
   const { id } = useParams();
@@ -27,12 +27,12 @@ function MatchStats(props) {
       .put(url, body, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
       .then((response) => {
-          window.location.href = `/match/${id}`;
+        window.location.href = `/match/${id}`;
       })
       .catch((error) =>
         alert(`[${error.response.status}] ${error.response.data}`),
@@ -40,18 +40,16 @@ function MatchStats(props) {
   };
 
   async function leaveMatch(playerId) {
-    console.log(playerId, id);
     const url = `${SERVER_URL}/leavematch/${id}`;
     await axios
       .delete(`${url}/players/${playerId}`, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
       .then((response) => {
-        console.log(response.status);
         let warriors_array = [];
         let owners_array = [];
         const territories = response.body;
@@ -60,7 +58,11 @@ function MatchStats(props) {
           warriors_array.push(element.warriors);
           owners_array.push(element.player_id);
         }
-        endTurn(playerId={playerId}, warriors={warriors_array}, owners={owners_array});
+        endTurn(
+          (playerId = { playerId }),
+          (warriors = { warriors_array }),
+          (owners = { owners_array }),
+        );
       })
       .catch((error) =>
         alert(`[${error.response.status}] ${error.response.data}`),
@@ -85,7 +87,7 @@ function MatchStats(props) {
           <div className="player-stats">
             <p>{player.username}</p>
             <p>
-              Warriors:{' '}
+              Warriors:{" "}
               {getTotalWarriors(
                 props.warriors,
                 props.owners,
@@ -93,17 +95,24 @@ function MatchStats(props) {
               )}
             </p>
             <p>
-              Territories:{' '}
+              Territories:{" "}
               {getTotalTerritories(props.owners, player.PlayersInMatch.turn)}
             </p>
           </div>
         </div>
       ))}
 
-      { props.lost || props.winner!='' ? (
-        <button id="Leave" onClick={() => navigate(`/profile/${props.player_id}`)}>Exit match</button>
-      ) : !props.lost  && props.currently_playing===props.username ? (
-        <button id="Leave" onClick={() => leaveMatch(props.player_id)}>Surrender</button>
+      {props.lost || props.winner != "" ? (
+        <button
+          id="Leave"
+          onClick={() => navigate(`/profile/${props.player_id}`)}
+        >
+          Exit match
+        </button>
+      ) : !props.lost && props.currently_playing === props.username ? (
+        <button id="Leave" onClick={() => leaveMatch(props.player_id)}>
+          Surrender
+        </button>
       ) : (
         <button id="Leave">Wait for your turn</button>
       )}

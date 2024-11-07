@@ -1,9 +1,9 @@
-const Router = require('koa-router');
+const Router = require("koa-router");
 // const { Op } = require('sequelize');
 
 const router = new Router();
 
-router.post('match.create', '/matches/:id', async (ctx) => {
+router.post("match.create", "/matches/:id", async (ctx) => {
   try {
     // update match
     const match = await ctx.orm.Match.findByPk(ctx.params.id);
@@ -89,27 +89,27 @@ router.post('match.create', '/matches/:id', async (ctx) => {
 });
 
 // gets info for match
-router.get('match.show', '/matches/:id', async (ctx) => {
+router.get("match.show", "/matches/:id", async (ctx) => {
   // todo if ctx.params.id not in match players return
   try {
     const player = await ctx.orm.Player.findByPk(ctx.state.tokendata.player.id);
     const match = await ctx.orm.Match.findByPk(ctx.params.id, {
       include: [
-        { model: ctx.orm.Game, as: 'game' },
-        { model: ctx.orm.Player, as: 'players' },
+        { model: ctx.orm.Game, as: "game" },
+        { model: ctx.orm.Player, as: "players" },
       ],
     });
     const playerInMatch = await ctx.orm.PlayersInMatch.findOne({
       where: { player_id: player.id, match_id: ctx.params.id },
     });
     if (!match || !player || !playerInMatch) {
-      ctx.throw(404, 'Not a game');
+      ctx.throw(404, "Not a game");
     }
     const territories = [];
     for (let i = 1; i < 20; i++) {
       const t = await ctx.orm.Territory.findOne({
         where: { match_id: ctx.params.id, position_id: i },
-        as: 'territory',
+        as: "territory",
       });
       const wallsList = [];
       const walls = await ctx.orm.Wall.findAll({
@@ -158,7 +158,7 @@ router.get('match.show', '/matches/:id', async (ctx) => {
 });
 
 // it updates match status
-router.put('matches.edit', '/matches/:id', async (ctx) => {
+router.put("matches.edit", "/matches/:id", async (ctx) => {
   try {
     const data = ctx.request.body;
 

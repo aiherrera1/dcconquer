@@ -1,7 +1,5 @@
-import {
-  createContext, useState, useEffect, useMemo,
-} from 'react';
-import Cookies from 'js-cookie';
+import { createContext, useState, useEffect, useMemo } from "react";
+import Cookies from "js-cookie";
 
 export const cookieAuth = createContext();
 
@@ -9,8 +7,7 @@ function CookieAuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(false);
 
   const handleUserLogin = () => {
-    const session = Cookies.get('koa.sess');
-    console.log(`koa.sess ${session}`);
+    const session = Cookies.get("koa.sess");
     if (session) {
       setCurrentUser(true);
     }
@@ -18,8 +15,8 @@ function CookieAuthProvider({ children }) {
 
   const handleUserLogout = () => {
     setCurrentUser(false);
-    Cookies.remove('koa.sess');
-    Cookies.remove('koa.sess.sig');
+    Cookies.remove("koa.sess");
+    Cookies.remove("koa.sess.sig");
   };
 
   useEffect(() => {

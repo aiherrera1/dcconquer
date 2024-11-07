@@ -13,7 +13,6 @@ function Documentation() {
         const sectionHeight = section.clientHeight;
         if (window.pageYOffset >= sectionTop - sectionHeight / 3) {
           current = section.getAttribute("id");
-          console.log(current);
         }
       });
 
@@ -269,10 +268,10 @@ function Documentation() {
         <h3>Waiting Room (Host view)</h3>
         <h5>Frontend</h5>
         <h6>
-          Once the host user enters his/her waiting room, the frontend will
-          show each player that has joined. This information will be provided by
-          the backend, which will be actively listening if a player is trying to
-          get in. The host user will be able to leave the match by pressing the
+          Once the host user enters his/her waiting room, the frontend will show
+          each player that has joined. This information will be provided by the
+          backend, which will be actively listening if a player is trying to get
+          in. The host user will be able to leave the match by pressing the
           "Leave Match" button, also will be able to accept/reject a player who
           is trying to enter the waiting room and kick them out once they are
           in. Every action the user does will be sent to the backend in order to
@@ -297,14 +296,14 @@ function Documentation() {
           show each player that has joined. This information will be provided by
           the backend, which will be actively listening if a player is trying to
           get in. The player will be able to leave the match by pressing the
-          "Leave Match" button. The player will have to wait until the host
-          user starts the match.
+          "Leave Match" button. The player will have to wait until the host user
+          starts the match.
         </h6>
         <h5>Backend</h5>
         <h6>
           The backend will listen when a player wants to enter the waiting room,
-          so it will send to the frontend a question if the host user accepts
-          or rejects the incoming player. If the frontend information shows that
+          so it will send to the frontend a question if the host user accepts or
+          rejects the incoming player. If the frontend information shows that
           the host accepted the new player, the backend will register him/her
           into the match database and will send the allowance to the frontend.
         </h6>

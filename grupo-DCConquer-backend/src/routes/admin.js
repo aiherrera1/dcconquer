@@ -1,12 +1,11 @@
-const Router = require('koa-router');
+const Router = require("koa-router");
 
 const router = new Router();
 
 // Checks if player is admin
-router.get('admin.show', '/admin', async (ctx) => {
+router.get("admin.show", "/admin", async (ctx) => {
   try {
     let admin = false;
-    console.log('hi', ctx.state.tokendata.player);
     const data = ctx.state.tokendata.player;
     if (data.admin) {
       admin = true;

@@ -1,17 +1,17 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import '../assets/styles/profile.css';
-import useCookieAuth from '../hooks/useCookieAuth';
-import useTokenAuth from '../hooks/useTokenAuth';
-import { SERVER_URL } from '../App';
-import { useParams, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import "../assets/styles/profile.css";
+import useCookieAuth from "../hooks/useCookieAuth";
+import useTokenAuth from "../hooks/useTokenAuth";
+import { SERVER_URL } from "../App";
+import { useParams, useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
   const { currentUser, handleUserLogout } = useCookieAuth();
   const { handleTokenChange } = useTokenAuth();
-  const [player, setPlayer] = useState({ avatar: 'fill_image.png' });
+  const [player, setPlayer] = useState({ avatar: "fill_image.png" });
   const [matches, setMatches] = useState([]);
   const [selected, setSelected] = useState();
   const [host, setHost] = useState(false);
@@ -26,21 +26,19 @@ function Profile() {
         const data = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         });
-        console.log(data['data'].playerId, data['data'].player.id);
-        setMatches(data['data'].player.matches);
-        console.log(data['data'].player.matches);
-        if (data['data'].player.id === data['data'].playerId) {
+        setMatches(data["data"].player.matches);
+        if (data["data"].player.id === data["data"].playerId) {
           setMyProfile(true);
         }
-        setPlayer(data['data'].player);
+        setPlayer(data["data"].player);
       } catch (error) {
-        await handleTokenChange('token', 'logout');
+        await handleTokenChange("token", "logout");
         await handleUserLogout();
-        navigate('/');
+        navigate("/");
 
         console.error(error.message);
       }
@@ -53,34 +51,34 @@ function Profile() {
     await axios
       .post(`${SERVER_URL}/auth/logout`)
       .then(() => {
-        console.log('Logout was succesful');
+        console.log("Logout was succesful");
       })
       .catch((err) => {
         console.log(err);
       });
-    await handleTokenChange('token', 'logout');
+    await handleTokenChange("token", "logout");
     await handleUserLogout();
 
-    window.location.replace('/');
+    window.location.replace("/");
   };
 
   function illuminateMatch(match) {
-    let matches = document.getElementsByClassName('match lightened-match');
+    let matches = document.getElementsByClassName("match lightened-match");
 
     for (let i = 0; i < matches.length; i += 1) {
-      matches[i].className = 'match';
+      matches[i].className = "match";
     }
 
-    if (document.getElementById(match.game.id).className == 'match') {
+    if (document.getElementById(match.game.id).className == "match") {
       document.getElementById(match.game.id).className =
-        'match lightened-match';
+        "match lightened-match";
       setSelected(match.game.id);
       setActive(match.game.active);
       if (match.game.host_id === player.id) {
         setHost(true);
       }
     } else {
-      document.getElementById(match.game.id).className = 'match';
+      document.getElementById(match.game.id).className = "match";
     }
   }
 
@@ -116,7 +114,7 @@ function Profile() {
                 )}
                 {match.game.host_id === parseInt(id) ? <p>(Host)</p> : <></>}
                 <img
-                  src={require('../assets/images/join_match.png')}
+                  src={require("../assets/images/join_match.png")}
                   alt="Warriors Heads"
                 />
               </div>

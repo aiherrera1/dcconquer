@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './Navbar';
-import Hex from './Hex';
-import MatchStats from './MatchStats';
-import '../assets/styles/match.css';
-import '../assets/styles/board.css';
-import axios from 'axios';
-import Ship from './Ship';
-import { useNavigate, useParams } from 'react-router-dom';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import { SERVER_URL } from '../App';
+import React, { useEffect, useState } from "react";
+import Navbar from "./Navbar";
+import Hex from "./Hex";
+import MatchStats from "./MatchStats";
+import "../assets/styles/match.css";
+import "../assets/styles/board.css";
+import axios from "axios";
+import Ship from "./Ship";
+import { useNavigate, useParams } from "react-router-dom";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { SERVER_URL } from "../App";
 import {
   getDiceScore,
   reachableTerritories,
@@ -22,17 +22,17 @@ import {
   wallSide,
   war,
   earthquake,
-} from './functions/matchFunctions.js';
+} from "./functions/matchFunctions.js";
 
 function Match() {
-  let send_warriors = document.getElementById('send-warriors');
+  let send_warriors = document.getElementById("send-warriors");
   if (send_warriors) {
-    send_warriors.addEventListener('keydown', (e) => e.preventDefault());
+    send_warriors.addEventListener("keydown", (e) => e.preventDefault());
   }
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
-  const [kind, setKind] = useState('');
-  const [available, setAvailable] = useState('');
+  const [kind, setKind] = useState("");
+  const [available, setAvailable] = useState("");
   const [gotCard, setGotCard] = useState(false);
   const [threwFirstDice, setThrewFirstDice] = useState(false);
   const [threwSecondDice, setThrewSecondDice] = useState(false);
@@ -41,16 +41,16 @@ function Match() {
   const [oldWarriors, setOldWarriors] = useState();
   const [currentWarrirors, setCurrentWarriors] = useState(1);
   const [fromWarriors, setFromWarriors] = useState(0);
-  const [currentlyPlaying, setCurentlyPlaying] = useState('');
+  const [currentlyPlaying, setCurentlyPlaying] = useState("");
   const [setttingWalls, setSettingWalls] = useState(false);
   const [firstWall, setFirstWall] = useState();
 
   const [dice, setDice] = useState([
-    'default',
-    'default',
-    'default',
-    'default',
-    'default',
+    "default",
+    "default",
+    "default",
+    "default",
+    "default",
   ]);
 
   const [availableTerritory, setAvailableTerritory] = useState([]);
@@ -64,7 +64,7 @@ function Match() {
   const [wallCards, setWallCards] = useState(0);
   const [shipCards, setShipCards] = useState(0);
   const [diceCards, setDiceCards] = useState(0);
-  const [card, setCard] = useState('default.png');
+  const [card, setCard] = useState("default.png");
 
   const [playerId, setPlayerId] = useState();
   const [playerUsername, setPlayerUsername] = useState();
@@ -74,7 +74,7 @@ function Match() {
   const [turn, setTurn] = useState();
   const [lost, setLost] = useState(false);
   const [gameEnded, setGameEnded] = useState(false);
-  const [winner, setWinner] = useState('');
+  const [winner, setWinner] = useState("");
   const [lastVal, setLastVal] = useState(0);
 
   const { id } = useParams();
@@ -86,7 +86,7 @@ function Match() {
         .get(url, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         })
@@ -118,9 +118,9 @@ function Match() {
               data.playerInMatch.turn ===
               data.match.current_turn % data.match.n_players
             ) {
-              setAvailable('available');
+              setAvailable("available");
             } else {
-              setAvailable('notAvailable');
+              setAvailable("notAvailable");
             }
             //order players (maybe do it by warriors or territories)
             // checks if it's current players turn
@@ -170,7 +170,7 @@ function Match() {
               setThrewFirstDice(data.turn.threw_first);
               setThrewSecondDice(data.turn.threw_second);
               setUsedDiceCard(data.turn.dice_card);
-              setDice(data.turn.dices.split(','));
+              setDice(data.turn.dices.split(","));
               setAttacked(data.turn.attacked);
               setFromTerritory(data.turn.from);
               setNewTerritory(data.turn.to);
@@ -188,9 +188,9 @@ function Match() {
                 setAvailableToMyOwn(owners_array, data.playerInMatch.turn);
               }
               let numbers = [];
-              for (let i = 0; i < data.turn.dices.split(',').length - 1; i++) {
-                const element = data.turn.dices.split(',')[i];
-                let arr = element.split('');
+              for (let i = 0; i < data.turn.dices.split(",").length - 1; i++) {
+                const element = data.turn.dices.split(",")[i];
+                let arr = element.split("");
                 numbers.push(parseInt(arr[arr.length - 1]));
               }
               let { bestScore, kind } = getDiceScore(numbers);
@@ -210,7 +210,7 @@ function Match() {
         })
         .catch((error) => {
           console.log(error);
-          navigate('/error');
+          navigate("/error");
         });
     };
 
@@ -237,7 +237,7 @@ function Match() {
           numbers.push(number);
           newDice.push(`dice${number}`);
         } else {
-          numbers.push(parseInt(dice[i].replace('dice', '')));
+          numbers.push(parseInt(dice[i].replace("dice", "")));
           newDice.push(dice[i]);
         }
         document.getElementById(`cb${i + 1}`).checked = true;
@@ -272,9 +272,9 @@ function Match() {
     for (let index = 0; index < owners.length; index++) {
       const element = owners[index];
       if (element === player_turn) {
-        newReach.push('available');
+        newReach.push("available");
       } else {
-        newReach.push('');
+        newReach.push("");
       }
     }
     setAvailableTerritory(newReach);
@@ -288,19 +288,19 @@ function Match() {
       let newOwners = [...owners];
       if (card <= 10) {
         setShipCards((prevShipCards) => prevShipCards + 1);
-        setCard('ship.png');
+        setCard("ship.png");
         cardNumber = 1;
       } else if (card <= 25) {
         setDiceCards(diceCards + 1);
         cardNumber = 2;
-        setCard('dice.png');
+        setCard("dice.png");
       } else if (card <= 40) {
         setWallCards(wallCards + 1);
         cardNumber = 3;
-        setCard('wall.png');
+        setCard("wall.png");
       } else if (card <= 50) {
         cardNumber = 4;
-        setCard('covid_19.png');
+        setCard("covid_19.png");
         endTurn(false);
       } else if (card <= 60) {
         let { functionNewWarriors, functionNewOwners } = blackDeath(
@@ -308,7 +308,6 @@ function Match() {
           owners,
           turn,
         );
-        //console.log(functionNewOwners);
         newWarriors = functionNewWarriors;
         newOwners = functionNewOwners;
         setWarriors(functionNewWarriors);
@@ -321,24 +320,24 @@ function Match() {
         setColors(newColors);
 
         cardNumber = 5;
-        setCard('black_death.png');
+        setCard("black_death.png");
       } else if (card <= 70) {
         newWarriors = howTheyGrow(warriors, owners, turn);
         setWarriors(newWarriors);
         cardNumber = 6;
-        setCard('how_they_grow.png');
+        setCard("how_they_grow.png");
       } else if (card <= 85) {
         cardNumber = 7;
         earthquake(walls, turn);
-        setCard('earthquake.png');
+        setCard("earthquake.png");
       } else {
         cardNumber = 8;
         newWarriors = aliens(warriors, owners, turn);
         setWarriors(newWarriors);
-        setCard('aliens.png');
+        setCard("aliens.png");
       }
-      let element = document.getElementById('popup');
-      element.style.visibility = 'visible';
+      let element = document.getElementById("popup");
+      element.style.visibility = "visible";
       setGotCard(true);
       postTurn(
         cardNumber,
@@ -365,7 +364,6 @@ function Match() {
     to_territory,
     from_warriors,
   ) => {
-    //console.log(newWarriors);
     const url = `${SERVER_URL}/turn/${id}`;
     const body = {
       warriors: newWarriors,
@@ -380,12 +378,11 @@ function Match() {
       from_warriors: from_warriors,
       attacked: attacked,
     };
-    //console.log(body);
     await axios
       .post(url, body, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
@@ -413,7 +410,7 @@ function Match() {
       .put(url, body, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
@@ -437,7 +434,7 @@ function Match() {
       .put(url, body, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
@@ -461,7 +458,7 @@ function Match() {
       .post(url, body, {
         headers: {
           Authorization: `Bearer ${JSON.parse(
-            localStorage.getItem('matches'),
+            localStorage.getItem("matches"),
           )}`,
         },
       })
@@ -475,7 +472,7 @@ function Match() {
 
   function selectTerritory(pos) {
     if (!setttingWalls) {
-      if (availableTerritory[pos - 1] === 'available') {
+      if (availableTerritory[pos - 1] === "available") {
         if (!fromTerritory) {
           setUsedDiceCard(true);
           setFromTerritory(pos);
@@ -527,12 +524,12 @@ function Match() {
       }
     } else {
       if (!firstWall) {
-        if (availableTerritory[pos - 1] === 'available') {
+        if (availableTerritory[pos - 1] === "available") {
           setFirstWall(pos);
           setAvailableTerritory(getAdjacentTerritories(pos, walls));
         }
       } else {
-        if (availableTerritory[pos - 1] === 'available') {
+        if (availableTerritory[pos - 1] === "available") {
           setSettingWalls(false);
           setFirstWall();
           postWall(firstWall, pos);
@@ -558,15 +555,11 @@ function Match() {
   }
 
   function handleEvt(evt) {
-    //console.log(evt.currentTarget.value);
-    //console.log(evt.currentTarget.value, lastVal);
     let newWarriors = [...warriors];
     if (parseInt(lastVal) < parseInt(evt.currentTarget.value)) {
-      //console.log(fromTerritory);
       newWarriors[fromTerritory - 1] -= 1;
       newWarriors[newTerritory - 1] += 1;
     } else {
-      //console.log('down');
       newWarriors[fromTerritory - 1] += 1;
       newWarriors[newTerritory - 1] -= 1;
     }
@@ -596,11 +589,11 @@ function Match() {
   }, [threwFirstDice]);
 
   function unavailableFeature() {
-    alert('This feature is not available right now');
+    alert("This feature is not available right now");
   }
 
   function setWall() {
-    if (attacked && available === 'available' && wallCards > 0) {
+    if (attacked && available === "available" && wallCards > 0) {
       setWallCards(wallCards - 1);
       setSettingWalls(true);
       setAvailableToMyOwn(owners, turn);
@@ -608,9 +601,9 @@ function Match() {
   }
 
   function hideCard() {
-    let element = document.getElementById('popup');
-    element.style.visibility = 'hidden';
-    if (card === 'covid_19.png') {
+    let element = document.getElementById("popup");
+    element.style.visibility = "hidden";
+    if (card === "covid_19.png") {
       window.location.href = `/match/${id}`;
     }
   }
@@ -646,7 +639,7 @@ function Match() {
                 />
               ))}
             </div>
-            {available === 'available' && !gameEnded ? (
+            {available === "available" && !gameEnded ? (
               <div className="troops-cards">
                 <div className="troops">
                   {!gotCard ? (
@@ -685,7 +678,7 @@ function Match() {
                   <button className="deck" onClick={() => getCard()} id="deck">
                     <p id="2-btn-text">Pick a Card</p>
                     <img
-                      src={require('../assets/images/pick_a_card.png')}
+                      src={require("../assets/images/pick_a_card.png")}
                       alt="Pick A Card "
                       id="2-btn-img"
                     />
@@ -787,8 +780,8 @@ function Match() {
             <div className="cards">
               <div className="card" onClick={() => setWall()}>
                 <img
-                  className={wallCards > 0 ? available : ''}
-                  src={require('../assets/images/cards/english/wall.png')}
+                  className={wallCards > 0 ? available : ""}
+                  src={require("../assets/images/cards/english/wall.png")}
                   alt="Wall Card"
                   draggable="false"
                 />
@@ -801,7 +794,7 @@ function Match() {
                   <Ship />
                 ) : (
                   <img
-                    src={require('../assets/images/cards/english/ship.png')}
+                    src={require("../assets/images/cards/english/ship.png")}
                     alt="Ship Card"
                     draggable="false"
                   />
@@ -812,7 +805,7 @@ function Match() {
               </div>
               <div className="card">
                 <img
-                  src={require('../assets/images/cards/english/dice.png')}
+                  src={require("../assets/images/cards/english/dice.png")}
                   alt="dice card"
                   draggable="false"
                 />
@@ -825,7 +818,7 @@ function Match() {
                 <p>Territories: {getTotalTerritories(owners, turn)}</p>
               </div>
             </div>
-            <MatchStats 
+            <MatchStats
               owners={owners}
               warriors={warriors}
               players={players}

@@ -1,12 +1,12 @@
-const Router = require('koa-router');
+const Router = require("koa-router");
 
 const router = new Router();
 
 // shows all games
-router.get('/games', async (ctx) => {
+router.get("/games", async (ctx) => {
   try {
     const games = await ctx.orm.Game.findAll({
-      include: [{ model: ctx.orm.Match, as: 'match' }],
+      include: [{ model: ctx.orm.Match, as: "match" }],
     });
     ctx.body = games;
     ctx.status = 201;
@@ -17,7 +17,7 @@ router.get('/games', async (ctx) => {
 });
 
 // it creates a game
-router.post('/games', async (ctx) => {
+router.post("/games", async (ctx) => {
   try {
     const { body } = ctx.request;
     const player = await ctx.orm.Player.findByPk(ctx.state.tokendata.player.id);
@@ -51,7 +51,7 @@ router.post('/games', async (ctx) => {
 
 // it deletes a game as well as its match
 // todo, destroy players in match as well
-router.delete('game.delete', '/games/:id', async (ctx) => {
+router.delete("game.delete", "/games/:id", async (ctx) => {
   try {
     if (ctx.state.tokendata.player.admin) {
       await ctx.orm.Game.destroy({
@@ -88,7 +88,7 @@ router.delete('game.delete', '/games/:id', async (ctx) => {
         },
       });
       ctx.response.status = 202;
-      ctx.response.body = { message: 'game deleted' };
+      ctx.response.body = { message: "game deleted" };
       // ctx.status(202);
 
       ctx.throw(match.dataValues, 202);

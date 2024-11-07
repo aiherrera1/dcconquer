@@ -1,66 +1,60 @@
-
 # grupo-DCConquer-backend
-## Integrantes
-* Vicente Aburto
-* Agustín Herrera
-* Agustín Suazo
-# Documentación
+
+## Contributors
+
+- Vicente Aburto
+- Agustín Herrera
+- Agustín Suazo
+
+# Documentation
+
 ## Variables
-Las siguientes variables se pueden usar tal cual, o cambiar a gusto. Lo importante es mantener la concordancia durante instalación.
+
+The following variables can be used as they are, or changed at will. The important thing is to maintain concordance during installation.
+
 ```
 project_user = dcconquer_user
 project_password = 12345
 project_db_name = dcconquer
 ```
-## Pasos de Instalación local
-1. Instalar _postgresql_
-    ```
-    brew install postgresql
-    ```
-2. Iniciar _postgresql_
-    ```
-    brew services start postgresql
-    ```
-3. Crear usuario y revisar que haya sido creado correctamente
-    ```
-    createuser {project_user} -s
-    psql postgres
-    \du
-    ```
-4. Asignar contraseña y salir de terminal _psql_
-    ```
-    ALTER USER {project_user} WITH PASSWORD '{project_password}';
-    \q
-    ```
-5. Crear 3 _databases_, ver si fueron creadas correctamente y salir de terminal _psql_
-    ```
-    createdb {project_db_name}_development
-    createdb {project_db_name}_test
-    createdb {project_db_name}_production
-    psql postgres
-    \l
-    \q
-    ```
-6. En la terminal posicionarse en la carpeta ```grupo-DCConquer-backend```
-7. Instalar las librerías 
-    ```
-    yarn install
-    ```
-8. Crear archivo ```.env```en carpeta general (```grupo-DCConquer-backend```) con lo siguiente:
-    ```
-    DB_USER={project_user}
-    DB_NAME={project_db_name}
-    DB_PASSWORD={project_password}
-    DB_HOST=localhost
-    ```
 
-9. Correr migraciones
-    ```
-    yarn sequelize-cli db:migrate
-    ```
+## Setup Guide
 
+1. **Install PostgreSQL**  
+   Ensure PostgreSQL is installed and running. This may vary by OS:
 
-# Referencias session y cookies
-* https://github.com/machadop1407/Authentication
-* https://koajs.com/
-* https://www.youtube.com/watch?v=OK9zmaXIISI&t=62s
+   - **Ubuntu/Linux:** Use `sudo apt install postgresql`.
+   - **macOS:** Use `brew install postgresql` and start the service with `brew services start postgresql`.
+   - **Windows:** Install PostgreSQL from [postgresql.org](https://www.postgresql.org/download/) and start the server through the installed software.
+
+2. **Create a PostgreSQL User**  
+   Create a PostgreSQL user for your project with superuser privileges, then set a password:
+
+   - Run `createuser` with the `-s` (superuser) flag.
+   - Assign a password to the user within the PostgreSQL command-line interface (`psql`).
+
+3. **Set Up Databases**  
+   Create three databases for different environments (development, test, production). Verify that they were created successfully by listing all databases in PostgreSQL.
+
+4. **Environment Configuration**  
+   In the project root, create an `.env` file to store your database configuration:
+
+   ```bash
+   DB_USER={project_user}
+   DB_NAME={project_db_name}
+   DB_PASSWORD={project_password}
+   DB_HOST=localhost
+   ```
+
+   Replace placeholders with your actual database credentials.
+
+5. **Install Project Dependencies**  
+   Use a package manager (like `yarn` or `npm`) to install all required dependencies for your project.
+
+6. **Run Migrations**  
+   Use a migration tool (like `sequelize-cli`) to apply database migrations and prepare your database schema.
+
+**Notes:**
+
+- Ensure PostgreSQL commands (`createuser`, `createdb`, `psql`) and any package manager commands (`yarn` or `npm`) are available in your terminal environment.
+- Adjust command syntax as needed depending on your operating system.

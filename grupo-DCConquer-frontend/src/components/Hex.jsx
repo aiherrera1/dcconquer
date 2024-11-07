@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { useDrop } from 'react-dnd';
-import { SERVER_URL } from '../App';
-import axios from 'axios';
+import React, { useState } from "react";
+import { useDrop } from "react-dnd";
+import { SERVER_URL } from "../App";
+import axios from "axios";
 
 function Hex(props) {
   const [shipLevel, setShipLevel] = useState(props.ship);
@@ -67,7 +67,7 @@ function Hex(props) {
   }
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: 'image',
+    accept: "image",
     drop: (item) => addShip(),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -79,7 +79,7 @@ function Hex(props) {
       props.n <= 12 &&
       shipLevel <= 4 &&
       props.turn === props.owner &&
-      props.myTurn === 'available'
+      props.myTurn === "available"
     ) {
       const url = `${SERVER_URL}/ship`;
       const body = {
@@ -90,7 +90,7 @@ function Hex(props) {
         .put(url, body, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         })
@@ -100,9 +100,8 @@ function Hex(props) {
             setShipLevel((prevShipLevel) => prevShipLevel + 1);
             window.location.href = `/match/${props.match_id}`;
           } else {
-            alert('you dont have enough cards');
+            alert("you dont have enough cards");
           }
-          console.log(response.status);
         })
         .catch((error) => {
           alert(`[${error.response.status}] ${error.response.data}`);

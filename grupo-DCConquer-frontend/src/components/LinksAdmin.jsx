@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import '../assets/styles/admin.css';
-import axios from 'axios';
-import { SERVER_URL } from '../App';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import "../assets/styles/admin.css";
+import axios from "axios";
+import { SERVER_URL } from "../App";
+import { useNavigate } from "react-router-dom";
 
 function LinksAdmin(props) {
   const [players, setPlayers] = useState([]);
@@ -15,15 +15,14 @@ function LinksAdmin(props) {
         const { data: response } = await axios.get(url, {
           headers: {
             Authorization: `Bearer ${JSON.parse(
-              localStorage.getItem('matches'),
+              localStorage.getItem("matches"),
             )}`,
           },
         });
         setPlayers(response);
-        console.log(response);
       } catch (error) {
         console.error(error.message);
-        navigate('/error');
+        navigate("/error");
       }
     };
 
@@ -32,14 +31,11 @@ function LinksAdmin(props) {
 
   async function backUpPlayers() {
     const url = `https://dcconquer-backup.herokuapp.com`;
-    console.log(players);
-    console.log(process.env.HEROKU_BACKUP);
     await axios
       .post(`${url}/backup`, players)
       .then((response) => {
-        console.log(response.status);
         if (response.status === 201) {
-          alert('Players were succesfully backed up');
+          alert("Players were succesfully backed up");
         }
       })
       .catch((error) =>
